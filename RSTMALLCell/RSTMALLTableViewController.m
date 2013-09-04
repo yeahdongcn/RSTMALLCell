@@ -147,6 +147,7 @@
 
 - (void)didFall:(RSTMALLImageView *)imageView
 {
+    
 }
 
 @end

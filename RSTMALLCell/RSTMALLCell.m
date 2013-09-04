@@ -36,7 +36,16 @@
 - (CGFloat)imagesPlaceHolderWidth
 {
     if (_imagesPlaceHolderWidth == NSIntegerMin) {
-        _imagesPlaceHolderWidth = 120;
+        // Take constraint from autolayout or change 0 to other suitable value
+        _imagesPlaceHolderWidth = 0;
+        for (NSLayoutConstraint *constraint in self.border.constraints) {
+            if ((constraint.firstAttribute == NSLayoutAttributeTrailing
+                 || constraint.secondAttribute == NSLayoutAttributeTrailing)
+                && constraint.constant > 0) {
+                _imagesPlaceHolderWidth = constraint.constant;
+                break;
+            }
+        }
     }
     return _imagesPlaceHolderWidth;
 }
