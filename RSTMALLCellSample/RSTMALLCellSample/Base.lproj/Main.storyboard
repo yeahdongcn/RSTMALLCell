@@ -75,6 +75,7 @@
                                     <outlet property="border" destination="iR9-tl-CNe" id="fU6-6s-HH9"/>
                                     <outlet property="contentLabel" destination="Mjv-tr-8aH" id="3Aq-pS-I9k"/>
                                     <outlet property="titleLabel" destination="ilB-xu-4o4" id="LpO-uK-gk8"/>
+                                    <segue destination="Qke-fO-X0j" kind="push" identifier="openDetail" id="mPd-0S-oYw"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -87,7 +88,26 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UpU-vo-ZpR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="257" y="267"/>
+            <point key="canvasLocation" x="185" y="267"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="zjS-BJ-daF">
+            <objects>
+                <viewController id="Qke-fO-X0j" customClass="RSDetailViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jAI-kc-JDU"/>
+                        <viewControllerLayoutGuide type="bottom" id="RDQ-U9-0LW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dFe-6C-fH9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="FlV-va-KVx"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gab-J6-0M5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="774" y="267"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -12,8 +12,6 @@
 
 #import "RSTMALLData.h"
 
-#import "RSTMALLImageView.h"
-
 @interface RSViewController ()
 
 @end
@@ -84,9 +82,11 @@
     return [super tableView:tableView cellForRowAtIndexPath:indexPath];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)didClick:(RSTMALLImageView *)imageView
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [super didClick:imageView];
+    
+    [self performSegueWithIdentifier:@"openDetail" sender:self];
 }
 
 @end

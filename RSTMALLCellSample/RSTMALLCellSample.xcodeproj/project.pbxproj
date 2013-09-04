@@ -25,6 +25,7 @@
 		D0EB955417D5B598008AEBB7 /* RSTMALLImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EB955317D5B598008AEBB7 /* RSTMALLImageView.m */; };
 		D0EB955717D5BA72008AEBB7 /* RSTMALLData.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EB955617D5BA72008AEBB7 /* RSTMALLData.m */; };
 		D0EB955A17D5E3A2008AEBB7 /* RSTMALLTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EB955917D5E3A2008AEBB7 /* RSTMALLTableViewController.m */; };
+		D0EB955D17D71EE6008AEBB7 /* RSDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EB955C17D71EE6008AEBB7 /* RSDetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,8 @@
 		D0EB955617D5BA72008AEBB7 /* RSTMALLData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSTMALLData.m; sourceTree = "<group>"; };
 		D0EB955817D5E3A2008AEBB7 /* RSTMALLTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSTMALLTableViewController.h; sourceTree = "<group>"; };
 		D0EB955917D5E3A2008AEBB7 /* RSTMALLTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSTMALLTableViewController.m; sourceTree = "<group>"; };
+		D0EB955B17D71EE6008AEBB7 /* RSDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSDetailViewController.h; sourceTree = "<group>"; };
+		D0EB955C17D71EE6008AEBB7 /* RSDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +135,8 @@
 				D0EB951D17D5B480008AEBB7 /* Supporting Files */,
 				D0EB954C17D5B4BA008AEBB7 /* RSViewController.h */,
 				D0EB954D17D5B4BA008AEBB7 /* RSViewController.m */,
+				D0EB955B17D71EE6008AEBB7 /* RSDetailViewController.h */,
+				D0EB955C17D71EE6008AEBB7 /* RSDetailViewController.m */,
 			);
 			path = RSTMALLCellSample;
 			sourceTree = "<group>";
@@ -281,6 +286,7 @@
 			files = (
 				D0EB952317D5B480008AEBB7 /* main.m in Sources */,
 				D0EB952717D5B480008AEBB7 /* RSAppDelegate.m in Sources */,
+				D0EB955D17D71EE6008AEBB7 /* RSDetailViewController.m in Sources */,
 				D0EB954E17D5B4BA008AEBB7 /* RSViewController.m in Sources */,
 				D0EB955717D5BA72008AEBB7 /* RSTMALLData.m in Sources */,
 				D0EB955A17D5E3A2008AEBB7 /* RSTMALLTableViewController.m in Sources */,
@@ -488,6 +494,7 @@
 				D0EB954717D5B480008AEBB7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D0EB954817D5B480008AEBB7 /* Build configuration list for PBXNativeTarget "RSTMALLCellSampleTests" */ = {
 			isa = XCConfigurationList;
@@ -496,6 +503,7 @@
 				D0EB954A17D5B480008AEBB7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

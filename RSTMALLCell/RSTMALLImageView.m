@@ -83,7 +83,7 @@
     [[self tableView] setScrollEnabled:NO];
     
     self.zPosition = self.layer.zPosition;
-    self.layer.zPosition = NSIntegerMax;
+    self.layer.zPosition = NSIntegerMax - 1;
     
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:[self superview]];

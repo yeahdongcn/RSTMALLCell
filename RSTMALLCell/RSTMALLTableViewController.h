@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RSTMALLTableViewController : UITableViewController
+#import "RSTMALLImageView.h"
+
+@interface RSTMALLTableViewController : UITableViewController <RSTMALLImageViewDelegate>
 
 @property (nonatomic, assign) BOOL isViewLoaded;
 
@@ -17,7 +19,5 @@
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
 @property (nonatomic, copy) NSString *cellIdentifier;
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @end

@@ -12,9 +12,7 @@
 
 #import "RSTMALLCell.h"
 
-#import "RSTMALLImageView.h"
-
-@interface RSTMALLTableViewController () <UIDynamicAnimatorDelegate, RSTMALLImageViewDelegate>
+@interface RSTMALLTableViewController () <UIDynamicAnimatorDelegate>
 
 - (void)__RSInitialize;
 
