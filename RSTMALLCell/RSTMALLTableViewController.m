@@ -133,24 +133,20 @@
 
 - (void)dynamicAnimatorWillResume:(UIDynamicAnimator*)animator
 {
-    NSLog(@"dynamicAnimatorWillResume:");
 }
 
 - (void)dynamicAnimatorDidPause:(UIDynamicAnimator*)animator
 {
-    NSLog(@"dynamicAnimatorDidPause:");
 }
 
 #pragma mark - RSTMALLImageViewDelegate
 
 - (void)didClick:(RSTMALLImageView *)imageView
 {
-    NSLog(@"didClick:");
 }
 
 - (void)didFall:(RSTMALLImageView *)imageView
 {
-    NSLog(@"didFall:");
 }
 
 @end
