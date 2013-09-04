@@ -18,4 +18,6 @@
 
 @property (nonatomic, copy) NSString *cellIdentifier;
 
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+
 @end
