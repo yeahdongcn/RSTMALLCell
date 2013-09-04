@@ -97,6 +97,7 @@
     [[self tableView] setScrollEnabled:YES];
 
     if (self.isClicked) {
+        // TODO: check touch point.
         if (self.delegate && [self.delegate respondsToSelector:@selector(didClick:)]) {
             [self.delegate didClick:self];
         }

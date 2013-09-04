@@ -82,7 +82,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    NSString *cellIdentifier = self.cellIdentifier;
+    __weak NSString *cellIdentifier = self.cellIdentifier;
     if (!cellIdentifier) {
         cellIdentifier = CellIdentifier; // Use 'Cell' as default cell indentifier
     }
