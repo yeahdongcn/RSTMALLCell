@@ -10,6 +10,8 @@
 
 @interface RSTMALLTableViewController : UITableViewController
 
+@property (nonatomic, assign) BOOL isViewLoaded;
+
 @property (nonatomic, strong) UIDynamicAnimator *animator;
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
