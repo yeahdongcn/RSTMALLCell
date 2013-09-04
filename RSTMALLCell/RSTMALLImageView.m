@@ -18,6 +18,8 @@
 
 @property (nonatomic, strong) UIGravityBehavior *gravityBehavior;
 
+@property (nonatomic, assign) BOOL isClicked;
+
 @end
 
 @implementation RSTMALLImageView
@@ -29,6 +31,7 @@
         // Initialization code
         self.isLast = NO;
         self.isFalling = NO;
+        self.isClicked = YES;
         
         self.layer.borderWidth = 1;
         self.layer.borderColor = [[UIColor lightGrayColor] CGColor];
@@ -92,18 +95,30 @@
     [super touchesEnded:touches withEvent:event];
     
     [[self tableView] setScrollEnabled:YES];
-    
-    if (!self.isLast) {
-        [[self tableViewController].animator addBehavior:self.gravityBehavior];
-        self.isFalling = YES;
+
+    if (self.isClicked) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(didClick:)]) {
+            [self.delegate didClick:self];
+        }
+        self.isClicked = YES;
     } else {
-        [self restore];
+        if (!self.isLast) {
+            [[self tableViewController].animator addBehavior:self.gravityBehavior];
+            self.isFalling = YES;
+            if (self.delegate && [self.delegate respondsToSelector:@selector(didFall:)]) {
+                [self.delegate didFall:self];
+            }
+        } else {
+            [self reset];
+        }
     }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesMoved:touches withEvent:event];
+    
+    self.isClicked = NO;
     
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:[self superview]];
@@ -112,10 +127,11 @@
     self.center = point;
 }
 
-- (void)restore
+- (void)reset
 {
     self.isLast = NO;
     self.isFalling = NO;
+    self.isClicked = YES;
     self.layer.zPosition = self.zPosition;
     if ([self isGravityBehaviorNotNil]) {
         [[self tableViewController].animator removeBehavior:self.gravityBehavior];

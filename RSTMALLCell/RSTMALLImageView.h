@@ -8,12 +8,26 @@
 
 #import <UIKit/UIKit.h>
 
+@class RSTMALLImageView;
+
+@protocol RSTMALLImageViewDelegate <NSObject>
+
+@optional
+
+- (void)didFall:(RSTMALLImageView *)imageView;
+
+- (void)didClick:(RSTMALLImageView *)imageView;
+
+@end
+
 @interface RSTMALLImageView : UIImageView
 
 @property (nonatomic, assign) BOOL isFalling;
 
 @property (nonatomic, assign) BOOL isLast;
 
-- (void)restore;
+@property (nonatomic, weak) id<RSTMALLImageViewDelegate> delegate;
+
+- (void)reset;
 
 @end

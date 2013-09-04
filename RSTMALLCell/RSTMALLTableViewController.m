@@ -14,7 +14,7 @@
 
 #import "RSTMALLImageView.h"
 
-@interface RSTMALLTableViewController ()<UIDynamicAnimatorDelegate>
+@interface RSTMALLTableViewController () <UIDynamicAnimatorDelegate, RSTMALLImageViewDelegate>
 
 - (void)__RSInitialize;
 
@@ -86,30 +86,32 @@
     static NSString *CellIdentifier = @"Cell";
     NSString *cellIdentifier = self.cellIdentifier;
     if (!cellIdentifier) {
-        cellIdentifier = CellIdentifier;
+        cellIdentifier = CellIdentifier; // Use 'Cell' as default cell indentifier
     }
+    
     id c = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
     int row = [indexPath row];
     id object = self.dataArray[row];
     
-    // Handle RSTMALLData -> RSTMALLCell
+    // RSTMALLData -> RSTMALLCell
     if ([object isKindOfClass:[RSTMALLData class]]) {
         RSTMALLData *data = object;
         RSTMALLCell *cell = c;
         cell.titleLabel.text = data.title;
         cell.contentLabel.text = data.content;
         for (int i = 0; i < [data.images count]; i++) {
-            RSTMALLImageView *iv = (RSTMALLImageView *)[self.tableView viewWithTag:(row + 1) * 1000 + i];
-            if (!iv) {
-                iv = [[RSTMALLImageView alloc] initWithImage:data.images[i]];
-                iv.tag = (row + 1) * 1000 + i;
-                [iv sizeToFit];
-                [self.tableView addSubview:iv];
+            RSTMALLImageView *imageView = (RSTMALLImageView *)[self.tableView viewWithTag:(row + 1) * 1000 + i];
+            if (!imageView) {
+                imageView = [[RSTMALLImageView alloc] initWithImage:data.images[i]];
+                imageView.tag = (row + 1) * 1000 + i;
+                imageView.delegate = self;
+                [imageView sizeToFit];
+                [self.tableView addSubview:imageView];
             }
-            CGRect frame = iv.frame;
-            frame.origin.x = floorf((cell.bounds.size.width - cell.border.bounds.size.width) / 2.0f + cell.border.bounds.size.width - 120 + (120 - frame.size.width) / 2.0f);
+            CGRect frame = imageView.frame;
+            frame.origin.x = floorf((cell.bounds.size.width - cell.border.bounds.size.width) / 2.0f + cell.border.bounds.size.width - (cell.imagesPlaceHolderWidth + frame.size.width) / 2.0f);
             frame.origin.y = floorf((cell.bounds.size.height - frame.size.height) / 2.0f);
             if (i == 0) {
                 frame.origin.x += 5;
@@ -120,14 +122,16 @@
             }
             frame.origin.x += cell.frame.origin.x;
             frame.origin.y += cell.frame.origin.y;
-            if (!iv.isFalling) {
-                iv.frame = frame;
+            if (!imageView.isFalling) {
+                imageView.frame = frame;
             }
         }
     }
     
     return c;
 }
+
+#pragma mark - UIDynamicAnimatorDelegate
 
 - (void)dynamicAnimatorWillResume:(UIDynamicAnimator*)animator
 {
@@ -137,6 +141,18 @@
 - (void)dynamicAnimatorDidPause:(UIDynamicAnimator*)animator
 {
     NSLog(@"dynamicAnimatorDidPause:");
+}
+
+#pragma mark - RSTMALLImageViewDelegate
+
+- (void)didClick:(RSTMALLImageView *)imageView
+{
+    NSLog(@"didClick:");
+}
+
+- (void)didFall:(RSTMALLImageView *)imageView
+{
+    NSLog(@"didFall:");
 }
 
 @end

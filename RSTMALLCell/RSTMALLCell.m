@@ -14,6 +14,7 @@
 {
     self = [super initWithCoder:aDecoder];
     if (self) {
+        self.imagesPlaceHolderWidth = NSIntegerMin;
         [self addObserver:self forKeyPath:@"border" options:NSKeyValueObservingOptionInitial context:NULL];
         [self addObserver:self forKeyPath:@"contentView" options:NSKeyValueObservingOptionInitial context:NULL];
     }
@@ -37,6 +38,14 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (CGFloat)imagesPlaceHolderWidth
+{
+    if (_imagesPlaceHolderWidth == NSIntegerMin) {
+        _imagesPlaceHolderWidth = 120;
+    }
+    return _imagesPlaceHolderWidth;
 }
 
 @end

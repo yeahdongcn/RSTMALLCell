@@ -13,7 +13,11 @@
 @interface RSTMALLCell : UITableViewCell
 
 @property (nonatomic, weak) IBOutlet UIView  *border;
+
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+
 @property (nonatomic, weak) IBOutlet UILabel *contentLabel;
+
+@property (nonatomic, assign) CGFloat imagesPlaceHolderWidth;
 
 @end
