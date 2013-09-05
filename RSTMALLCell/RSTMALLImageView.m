@@ -12,8 +12,6 @@
 
 @interface RSTMALLImageView ()
 
-@property (nonatomic, assign) CGFloat zPosition;
-
 @property (nonatomic, assign) CGSize offset;
 
 @property (nonatomic, strong) UIGravityBehavior *gravityBehavior;
@@ -39,6 +37,11 @@
         self.userInteractionEnabled = YES;
     }
     return self;
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return NO;
 }
 
 - (UITableView *)tableView
@@ -82,7 +85,6 @@
     
     [[self tableView] setScrollEnabled:NO];
     
-    self.zPosition = self.layer.zPosition;
     self.layer.zPosition = NSIntegerMax - 1;
     
     UITouch *touch = [touches anyObject];
@@ -134,7 +136,7 @@
     self.isLast = NO;
     self.isFalling = NO;
     self.isClicked = YES;
-    self.layer.zPosition = self.zPosition;
+    self.layer.zPosition = 0;
     if ([self isGravityBehaviorNotNil]) {
         [[self tableViewController].animator removeBehavior:self.gravityBehavior];
     }
