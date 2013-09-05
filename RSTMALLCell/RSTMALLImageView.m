@@ -108,12 +108,8 @@
             [self.delegate didClick:self];
         }
     } else {
-        if (ABS(self.oldCenter.x - self.center.x) <= self.dragThreshold
-            || ABS(self.oldCenter.y - self.center.y) <= self.dragThreshold) {
-            [UIView animateWithDuration:[[UIApplication sharedApplication] statusBarOrientationAnimationDuration] animations:^{
-                self.center = self.oldCenter;
-            }];
-        } else {
+        if (ABS(self.oldCenter.x - self.center.x) > self.dragThreshold
+            || ABS(self.oldCenter.y - self.center.y) > self.dragThreshold) {
             if (self.delegate && [self.delegate respondsToSelector:@selector(willFall:)]) {
                 [self.delegate willFall:self];
             }
@@ -126,6 +122,10 @@
                 self.userInteractionEnabled = NO;
                 self.isFalling = YES;
             }
+        } else {
+            [UIView animateWithDuration:[[UIApplication sharedApplication] statusBarOrientationAnimationDuration] animations:^{
+                self.center = self.oldCenter;
+            }];
         }
     }
 }
