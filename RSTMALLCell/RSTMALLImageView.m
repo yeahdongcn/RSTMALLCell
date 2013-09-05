@@ -33,7 +33,7 @@
         self.isFalling = NO;
         self.isClicked = YES;
         
-        self.dragThreshold = 5.0f;
+        self.dragThreshold = 10.0f;
         
         self.layer.borderWidth = 1;
         self.layer.borderColor = [[UIColor lightGrayColor] CGColor];
