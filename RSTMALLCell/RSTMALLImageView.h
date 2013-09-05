@@ -12,7 +12,7 @@
 
 @protocol RSTMALLImageViewDelegate <NSObject>
 
-@optional
+@required
 
 - (void)willFall:(RSTMALLImageView *)imageView;
 
@@ -27,6 +27,8 @@
 @property (nonatomic, assign) BOOL isFalling;
 
 @property (nonatomic, assign) BOOL isLast;
+
+@property (nonatomic, assign) CGFloat dragThreshold;
 
 @property (nonatomic, weak) id<RSTMALLImageViewDelegate> delegate;
 

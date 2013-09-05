@@ -14,6 +14,8 @@
 
 @property (nonatomic, assign) CGSize offset;
 
+@property (nonatomic, assign) CGPoint oldCenter;
+
 @property (nonatomic, strong) UIGravityBehavior *gravityBehavior;
 
 @property (nonatomic, assign) BOOL isClicked;
@@ -30,6 +32,8 @@
         self.isLast = NO;
         self.isFalling = NO;
         self.isClicked = YES;
+        
+        self.dragThreshold = 5.0f;
         
         self.layer.borderWidth = 1;
         self.layer.borderColor = [[UIColor lightGrayColor] CGColor];
@@ -90,6 +94,7 @@
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:[self superview]];
     self.offset = CGSizeMake(self.center.x - point.x, self.center.y - point.y);
+    self.oldCenter = CGPointMake(self.center.x, self.center.y);
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -99,21 +104,28 @@
     [[self tableView] setScrollEnabled:YES];
 
     if (self.isClicked) {
-        // TODO: check touch point.
         if (self.delegate && [self.delegate respondsToSelector:@selector(didClick:)]) {
             [self.delegate didClick:self];
         }
     } else {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(willFall:)]) {
-            [self.delegate willFall:self];
-        }
-        if (self.isLast) {
-            if (self.delegate && [self.delegate respondsToSelector:@selector(willReset:)]) {
-                [self.delegate willReset:self];
-            }
+        if (ABS(self.oldCenter.x - self.center.x) <= self.dragThreshold
+            || ABS(self.oldCenter.y - self.center.y) <= self.dragThreshold) {
+            [UIView animateWithDuration:[[UIApplication sharedApplication] statusBarOrientationAnimationDuration] animations:^{
+                self.center = self.oldCenter;
+            }];
         } else {
-            [[self tableViewController].animator addBehavior:self.gravityBehavior];
-            self.isFalling = YES;
+            if (self.delegate && [self.delegate respondsToSelector:@selector(willFall:)]) {
+                [self.delegate willFall:self];
+            }
+            if (self.isLast) {
+                if (self.delegate && [self.delegate respondsToSelector:@selector(willReset:)]) {
+                    [self.delegate willReset:self];
+                }
+            } else {
+                [[self tableViewController].animator addBehavior:self.gravityBehavior];
+                self.userInteractionEnabled = NO;
+                self.isFalling = YES;
+            }
         }
     }
 }
@@ -137,6 +149,7 @@
     self.isFalling = NO;
     self.isClicked = YES;
     self.layer.zPosition = 0;
+    self.userInteractionEnabled = YES;
     if ([self isGravityBehaviorNotNil]) {
         [[self tableViewController].animator removeBehavior:self.gravityBehavior];
     }
