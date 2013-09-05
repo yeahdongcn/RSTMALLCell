@@ -133,7 +133,19 @@
 
 - (void)didClick:(RSTMALLImageView *)imageView {}
 
-- (void)didFall:(RSTMALLImageView *)imageView {}
+- (void)didFall:(RSTMALLImageView *)imageView
+{
+    NSIndexPath *indexPath = [[self class] indexPathForImageView:imageView];
+    
+    id object = self.dataArray[[indexPath row]];
+    if ([object isKindOfClass:[RSTMALLData class]]) {
+        RSTMALLData *data = object;
+        data.countOfRemainingImages -= 1;
+        if (data.countOfRemainingImages == 0) {
+            imageView.isLast = YES;
+        }
+    }
+}
 
 #pragma mark - UIDynamicAnimatorDelegate
 
