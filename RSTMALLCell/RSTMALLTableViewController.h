@@ -20,4 +20,12 @@
 
 @property (nonatomic, copy) NSString *cellIdentifier;
 
++ (NSIndexPath *)indexPathForImageView:(RSTMALLImageView *)imageView;
+
++ (int)indexForImageVIew:(RSTMALLImageView *)imageView;
+
++ (NSUInteger)imageViewTagOffset;
+
++ (CGFloat)imageViewFrameOffset;
+
 @end

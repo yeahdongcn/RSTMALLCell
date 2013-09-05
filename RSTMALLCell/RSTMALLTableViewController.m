@@ -100,10 +100,10 @@
         cell.titleLabel.text = data.title;
         cell.contentLabel.text = data.content;
         for (int i = 0; i < [data.images count]; i++) {
-            RSTMALLImageView *imageView = (RSTMALLImageView *)[self.tableView viewWithTag:(row + 1) * 1000 + i];
+            RSTMALLImageView *imageView = (RSTMALLImageView *)[self.tableView viewWithTag:(row + 1) * [[self class] imageViewTagOffset] + i];
             if (!imageView) {
                 imageView = [[RSTMALLImageView alloc] initWithImage:data.images[i]];
-                imageView.tag = (row + 1) * 1000 + i;
+                imageView.tag = (row + 1) * [[self class] imageViewTagOffset] + i;
                 imageView.delegate = self;
                 [imageView sizeToFit];
                 [self.tableView addSubview:imageView];
@@ -112,11 +112,11 @@
             frame.origin.x = floorf((cell.bounds.size.width - cell.border.bounds.size.width) / 2.0f + cell.border.bounds.size.width - (cell.imagesPlaceHolderWidth + frame.size.width) / 2.0f);
             frame.origin.y = floorf((cell.bounds.size.height - frame.size.height) / 2.0f);
             if (i == 0) {
-                frame.origin.x += 5;
-                frame.origin.y += 5;
+                frame.origin.x += [[self class] imageViewFrameOffset];
+                frame.origin.y += [[self class] imageViewFrameOffset];
             } else if (i >= 2) {
-                frame.origin.x -= 5;
-                frame.origin.y -= 5;
+                frame.origin.x -= [[self class] imageViewFrameOffset];
+                frame.origin.y -= [[self class] imageViewFrameOffset];
             }
             frame.origin.x += cell.frame.origin.x;
             frame.origin.y += cell.frame.origin.y;
@@ -129,25 +129,39 @@
     return c;
 }
 
-#pragma mark - UIDynamicAnimatorDelegate
-
-- (void)dynamicAnimatorWillResume:(UIDynamicAnimator*)animator
-{
-}
-
-- (void)dynamicAnimatorDidPause:(UIDynamicAnimator*)animator
-{
-}
-
 #pragma mark - RSTMALLImageViewDelegate
 
-- (void)didClick:(RSTMALLImageView *)imageView
+- (void)didClick:(RSTMALLImageView *)imageView {}
+
+- (void)didFall:(RSTMALLImageView *)imageView {}
+
+#pragma mark - UIDynamicAnimatorDelegate
+
+- (void)dynamicAnimatorWillResume:(UIDynamicAnimator*)animator {}
+
+- (void)dynamicAnimatorDidPause:(UIDynamicAnimator*)animator {}
+
+#pragma mark - Public
+
++ (NSIndexPath *)indexPathForImageView:(RSTMALLImageView *)imageView
 {
+    int row = imageView.tag / [[self class] imageViewTagOffset] - 1;
+    return [NSIndexPath indexPathForRow:row inSection:0];
 }
 
-- (void)didFall:(RSTMALLImageView *)imageView
++ (int)indexForImageVIew:(RSTMALLImageView *)imageView
 {
-    
+    return imageView.tag % 1000;
+}
+
++ (NSUInteger)imageViewTagOffset
+{
+    return 1000;
+}
+
++ (CGFloat)imageViewFrameOffset
+{
+    return 5.0f;
 }
 
 @end
