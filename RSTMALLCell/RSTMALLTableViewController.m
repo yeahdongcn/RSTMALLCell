@@ -24,6 +24,9 @@
 
 - (void)__RSInitialize
 {
+    self.flyingDistance = 600.0f;
+    self.flyingDurationBase = 0.1;
+    self.flyingStep = 0.06;
     self.dataArray = [[NSMutableArray alloc] init];
 }
 
@@ -103,6 +106,7 @@
             RSTMALLImageView *imageView = (RSTMALLImageView *)[self.tableView viewWithTag:(row + 1) * [[self class] imageViewTagOffset] + i];
             if (!imageView) {
                 imageView = [[RSTMALLImageView alloc] initWithImage:data.images[i]];
+                imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
                 imageView.tag = (row + 1) * [[self class] imageViewTagOffset] + i;
                 imageView.delegate = self;
                 [imageView sizeToFit];
@@ -133,16 +137,55 @@
 
 - (void)didClick:(RSTMALLImageView *)imageView {}
 
-- (void)didFall:(RSTMALLImageView *)imageView
+- (void)willFall:(RSTMALLImageView *)imageView
 {
-    NSIndexPath *indexPath = [[self class] indexPathForImageView:imageView];
+    int row = [[[self class] indexPathForImageView:imageView] row];
     
-    id object = self.dataArray[[indexPath row]];
+    id object = self.dataArray[row];
     if ([object isKindOfClass:[RSTMALLData class]]) {
         RSTMALLData *data = object;
         data.countOfRemainingImages -= 1;
         if (data.countOfRemainingImages == 0) {
             imageView.isLast = YES;
+        }
+    }
+}
+
+- (void)willReset:(RSTMALLImageView *)imageView
+{
+    NSIndexPath *indexPath = [[self class] indexPathForImageView:imageView];
+    int row = [indexPath row];
+
+    id object = self.dataArray[row];
+    if ([object isKindOfClass:[RSTMALLData class]]) {
+        RSTMALLData *data = object;
+        RSTMALLCell *cell = (RSTMALLCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        data.countOfRemainingImages = [data.images count];
+        
+        for (int i = 0; i < [data.images count]; i++) {
+            RSTMALLImageView *imageView = (RSTMALLImageView *)[self.tableView viewWithTag:(row + 1) * [[self class] imageViewTagOffset] + i];
+            [imageView reset];
+            CGRect frame = imageView.frame;
+            frame.origin.x = floorf((cell.bounds.size.width - cell.border.bounds.size.width) / 2.0f + cell.border.bounds.size.width - (cell.imagesPlaceHolderWidth + frame.size.width) / 2.0f);
+            frame.origin.y = floorf((cell.bounds.size.height - frame.size.height) / 2.0f);
+            if (i == 0) {
+                frame.origin.x += [[self class] imageViewFrameOffset];
+                frame.origin.y += [[self class] imageViewFrameOffset];
+            } else if (i >= 2) {
+                frame.origin.x -= [[self class] imageViewFrameOffset];
+                frame.origin.y -= [[self class] imageViewFrameOffset];
+            }
+            frame.origin.x += cell.frame.origin.x;
+            frame.origin.y += cell.frame.origin.y;
+            frame.origin.x -= self.flyingDistance;
+            imageView.frame = frame;
+            
+            [UIView animateWithDuration:(self.flyingDurationBase + self.flyingStep * i) delay:self.flyingDurationBase options:UIViewAnimationOptionCurveEaseIn animations:^{
+                CGRect frame = imageView.frame;
+                frame.origin.x += self.flyingDistance;
+                imageView.frame = frame;
+            } completion:^(BOOL finished) {
+            }];
         }
     }
 }
@@ -163,7 +206,7 @@
 
 + (int)indexForImageVIew:(RSTMALLImageView *)imageView
 {
-    return imageView.tag % 1000;
+    return imageView.tag % [[self class] imageViewTagOffset];
 }
 
 + (NSUInteger)imageViewTagOffset

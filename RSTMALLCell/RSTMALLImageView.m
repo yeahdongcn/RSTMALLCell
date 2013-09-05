@@ -101,16 +101,17 @@
         if (self.delegate && [self.delegate respondsToSelector:@selector(didClick:)]) {
             [self.delegate didClick:self];
         }
-        self.isClicked = YES;
     } else {
-        self.isFalling = YES;
-        if (self.delegate && [self.delegate respondsToSelector:@selector(didFall:)]) {
-            [self.delegate didFall:self];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(willFall:)]) {
+            [self.delegate willFall:self];
         }
         if (self.isLast) {
-            [self reset];
+            if (self.delegate && [self.delegate respondsToSelector:@selector(willReset:)]) {
+                [self.delegate willReset:self];
+            }
         } else {
             [[self tableViewController].animator addBehavior:self.gravityBehavior];
+            self.isFalling = YES;
         }
     }
 }

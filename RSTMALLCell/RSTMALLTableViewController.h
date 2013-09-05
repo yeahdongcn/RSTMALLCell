@@ -20,6 +20,12 @@
 
 @property (nonatomic, copy) NSString *cellIdentifier;
 
+@property (nonatomic, assign) CGFloat flyingDistance;
+
+@property (nonatomic, assign) NSTimeInterval flyingDurationBase;
+
+@property (nonatomic, assign) NSTimeInterval flyingStep;
+
 + (NSIndexPath *)indexPathForImageView:(RSTMALLImageView *)imageView;
 
 + (int)indexForImageVIew:(RSTMALLImageView *)imageView;

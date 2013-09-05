@@ -14,9 +14,11 @@
 
 @optional
 
-- (void)didFall:(RSTMALLImageView *)imageView;
+- (void)willFall:(RSTMALLImageView *)imageView;
 
 - (void)didClick:(RSTMALLImageView *)imageView;
+
+- (void)willReset:(RSTMALLImageView *)imageView;
 
 @end
 
