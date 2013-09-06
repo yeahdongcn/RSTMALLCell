@@ -20,6 +20,9 @@
 
 @implementation RSTMALLTableViewController
 
+static const NSString *kDefaultCellIdentifierKey   = @"__DEFAULT__";
+static const NSString *kDefaultCellIdentifierValue = @"Cell";
+
 #pragma mark - Private
 
 - (void)__RSInitialize
@@ -27,6 +30,8 @@
     self.flyingDistance = 600.0f;
     self.flyingDurationBase = 0.1;
     self.flyingStep = 0.06;
+    self.cellIdentifierMap = [[NSMutableDictionary alloc] init];
+    [self.cellIdentifierMap setObject:kDefaultCellIdentifierValue forKey:kDefaultCellIdentifierKey];
     self.dataArray = [[NSMutableArray alloc] init];
 }
 
@@ -84,17 +89,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    __weak NSString *cellIdentifier = self.cellIdentifier;
+    int row = [indexPath row];
+    id object = self.dataArray[row];
+    
+    __weak NSString *cellIdentifier = [self.cellIdentifierMap objectForKey:NSStringFromClass([object class])];
     if (!cellIdentifier) {
-        cellIdentifier = CellIdentifier; // Use 'Cell' as default cell indentifier
+        cellIdentifier = [self.cellIdentifierMap objectForKey:kDefaultCellIdentifierKey];
     }
     
     id c = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    
-    // Configure the cell...
-    int row = [indexPath row];
-    id object = self.dataArray[row];
     
     // RSTMALLData -> RSTMALLCell
     if ([object isKindOfClass:[RSTMALLData class]]) {

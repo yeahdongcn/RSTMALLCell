@@ -131,12 +131,12 @@
 				D0EB952517D5B480008AEBB7 /* RSAppDelegate.h */,
 				D0EB952617D5B480008AEBB7 /* RSAppDelegate.m */,
 				D0EB952817D5B480008AEBB7 /* Main.storyboard */,
+				D0EB955B17D71EE6008AEBB7 /* RSDetailViewController.h */,
+				D0EB955C17D71EE6008AEBB7 /* RSDetailViewController.m */,
 				D0EB952E17D5B480008AEBB7 /* Images.xcassets */,
 				D0EB951D17D5B480008AEBB7 /* Supporting Files */,
 				D0EB954C17D5B4BA008AEBB7 /* RSViewController.h */,
 				D0EB954D17D5B4BA008AEBB7 /* RSViewController.m */,
-				D0EB955B17D71EE6008AEBB7 /* RSDetailViewController.h */,
-				D0EB955C17D71EE6008AEBB7 /* RSDetailViewController.m */,
 			);
 			path = RSTMALLCellSample;
 			sourceTree = "<group>";

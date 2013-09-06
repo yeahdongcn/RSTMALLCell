@@ -18,7 +18,7 @@
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
-@property (nonatomic, copy) NSString *cellIdentifier;
+@property (nonatomic, strong) NSMutableDictionary *cellIdentifierMap;
 
 @property (nonatomic, assign) CGFloat flyingDistance;
 
