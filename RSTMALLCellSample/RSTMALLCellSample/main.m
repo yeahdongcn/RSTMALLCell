@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 #import "RSAppDelegate.h"
+
 typedef int (*writer)(void *, const char *, int);
 static writer _writer;
 
