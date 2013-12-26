@@ -13,3 +13,7 @@ You can have a RSTMALLTableViewController based table view controller, when usin
 
 [![ScreenShot](https://raw.github.com/GabLeRoux/WebMole/master/ressources/WebMole_Youtube_Video.png)](http://v.youku.com/v_show/id_XNjA1MjgyNzQw.html)
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/yeahdongcn/rstmallcell/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
